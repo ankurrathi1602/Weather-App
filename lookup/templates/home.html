@@ -2,7 +2,51 @@
 
 {% block content%}
 
-<h1>Hello World!!!</h1>
+<h2>Weather Report</h2>
+{% if city %}
+	{{city}}
+{%endif%}
 
+</br>
+
+{% if api.status == "fail"%}
+	<div class="jumbotron">
+		<h3 class="display-4"><span style="color: red;">Weather Data of the city is not Found.</span></h3>
+	</div>
+{% else %}
+	<div class="jumbotron">
+	  <h1 class="display-4">Quality:  
+	  	{% if api.data.current.pollution.aqius >= 0 and api.data.current.pollution.aqius <= 50 %}
+	  		<span style="color: green; border: 2px solid green; border-radius: 20px;">Good</span>
+	  	{% elif api.data.current.pollution.aqius >= 51 and api.data.current.pollution.aqius <= 100 %}
+	  		<span style="color: yellow; border: 2px solid yellow; border-radius: 20px;">Moderate</span>
+	  	{% elif api.data.current.pollution.aqius >= 101 and api.data.current.pollution.aqius <= 200 %}
+	  		<span style="color: pink; border: 2px solid pink; border-radius: 20px;">Sensitive</span>
+	  	{% elif api.data.current.pollution.aqius >= 201 and api.data.current.pollution.aqius <= 300 %}
+	  		<span style="color: red; border: 2px solid red; border-radius: 20px;">Critical</span>
+	  	{% elif api.data.current.pollution.aqius >= 301 and api.data.current.pollution.aqius <= 400 %}
+	  		<span style="color: violet; border: 2px solid violet; border-radius: 20px;">More Critical</span>
+	  	{% elif api.data.current.pollution.aqius >= 401 and api.data.current.pollution.aqius <= 500 %}
+	  		<span style="color: brown; border: 2px solid brown; border-radius: 20px;">Hazardous</span>
+	  	{%endif%}
+
+	  </h1>
+	  <p class="lead">Reporting Area : <span style="color: blue;">{{api.data.city}}, {{api.data.state}}, {{api.data.country}}</span>, &nbsp;&nbsp;Air Quality Index: <span style="color: blue;">{{api.data.current.pollution.aqius}}</span></p>
+	  <hr class="my-4">
+	  	{% if api.data.current.pollution.aqius >= 0 and api.data.current.pollution.aqius <= 50 %}
+	  		<p style="color: green;">(0-50) Air quality is considered satisfactory, and air pollution poses little or no risk.</p>
+	  	{% elif api.data.current.pollution.aqius >= 51 and api.data.current.pollution.aqius <= 100 %}
+	  		<p style="color: yellow;">(51-100) Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</p>
+	  	{% elif api.data.current.pollution.aqius >= 101 and api.data.current.pollution.aqius <= 200 %}
+	  		<p style="color: pink;">(101-150) Members of sensitive groups may experience health effects. The general public is not likely to be affected.</p>
+	  	{% elif api.data.current.pollution.aqius >= 201 and api.data.current.pollution.aqius <= 300 %}
+	  		<p style="color: red;">(151-200) Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.</p>
+	  	{% elif api.data.current.pollution.aqius >= 301 and api.data.current.pollution.aqius <= 400 %}
+	  		<p style="color: violet;">(201-250) Health alert: everyone may experience more serious health effects.</p>
+	  	{% elif api.data.current.pollution.aqius >= 401 and api.data.current.pollution.aqius <= 500 %}
+	  		<p style="color: brown;">(251-300) Health warnings of emergency conditions. The entire population is more likely to be affected.</p>
+	  {%endif%}
+	</div>
+{%endif%}
 
 {% endblock%}

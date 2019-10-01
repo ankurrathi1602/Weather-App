@@ -26,9 +26,10 @@
         <a class="nav-link" href="{%url 'base'%}">About Me</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+    <form action="{% url 'home' %}" class="form-inline my-2 my-lg-0" method="POST">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Enter City" aria-label="Search" name="city">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Get update</button>
     </form>
   </div>
 </nav>
@@ -37,6 +38,8 @@
 		{% block content%}
 		</br>
 		<h1>About me</h1>
+	</br>
+		<h3></h3>
 
 
 		{% endblock%}
